@@ -142,10 +142,10 @@
   <!--通过用户名查询用户记录，返回用户对象-->
   <select id="queryUserByName" parameterType="string" resultType="com.xxxx.crm.vo.User">
     select
-    <include refid='Base_Column_List'/>
+    <include refid="Base_Column_List"/>
     from
         t_user
     where
-        user_name= {#userName}
+        user_name= #{userName}
   </select>
 </mapper>

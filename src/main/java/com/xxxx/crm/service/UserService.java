@@ -34,13 +34,13 @@ public class UserService extends BaseService<User,Integer> {
         //1.参数判断，判断用户姓名密码是否为空
         checkLoginparams(userName,userPwd);
         //2、调用数据访问层，通过用户名查询用户记录、返回用户对象
-        User user=userMapper.queryUserByName(userName);
+        User user= userMapper.queryUserByName(userName);
         //3、判断用户对象是否为空
         AssertUtil.isTrue(user==null,"用户姓名不存在");
         // 4、判断用户密码是否正确，对比客户端传递的密码与数据库中查询的密码是否相同
         checkUserPwd(userPwd,user.getUserPwd());
-        //返回构建的对象
-        return    buildUserInfo(user);
+        //返回构建用户的对象
+        return buildUserInfo(user);
 
     }
 
@@ -58,7 +58,7 @@ public class UserService extends BaseService<User,Integer> {
 
     /**
      * 密码判断
-     * 先将客户端传递的密码加密，在讲数据库中查询的密码对比
+     * 先将客户端传递的密码加密，在与数据库中查询的密码对比
      * @param userPwd
      * @param pwd
      */
