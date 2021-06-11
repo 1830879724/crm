@@ -7,7 +7,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
     /**
      * 用户登录 表单提交
      */
-    form.on('submit(login)',function (data) {
+    form.on("submit(login)", function(data){
         console.log(data.field)//当前容器的全部表单字段，名值对形式：{name:value}
         /*表单元素的非空判断*/
 
@@ -16,7 +16,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
             type:"post",
             url:ctx + "/user/login",
             data:{
-                username:data.field.username,
+                userName:data.field.username,
                 userPwd:data.field.password
             },
             //回调函数 返回结果
