@@ -36,7 +36,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
                     layer.msg("登录成功！",function() {
                     //将用户信息设置到cookie中
                         //登录成功跳转到首页
-                        $.cookie("userId",result.result.userId);
+                        $.cookie("userIdStr",result.result.userIdStr);
                         $.cookie("userName",result.result.userName);
                         $.cookie("trueName",result.result.trueName);
                         window.location.href = ctx + "/main";

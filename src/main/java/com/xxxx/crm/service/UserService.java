@@ -7,6 +7,7 @@ import com.xxxx.crm.dao.UserMapper;
 import com.xxxx.crm.model.UserModel;
 import com.xxxx.crm.utils.AssertUtil;
 import com.xxxx.crm.utils.Md5Util;
+import com.xxxx.crm.utils.UserIDBase64;
 import com.xxxx.crm.vo.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,9 @@ public class UserService extends BaseService<User,Integer> {
      */
     private UserModel buildUserInfo(User user) {
         UserModel userModel=new UserModel();
-        userModel.setUserId(user.getId());
+        //userModel.setUserId(user.getId());
+        //设置加密的用户ID
+        userModel.setUserIdStr(UserIDBase64.encoderUserID(user.getId()));
         userModel.setUserName(user.getUserName());
         userModel.setTrueName(user.getTrueName());
         return userModel;

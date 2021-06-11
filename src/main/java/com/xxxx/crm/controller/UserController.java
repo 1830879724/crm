@@ -34,6 +34,7 @@ public class UserController extends BaseController  {
             UserModel userModel= userService.userLogin(userName, userPwd);
             //设置ResultInfo的result的值（讲数据返回给请求）
             resultInfo.setResult(userModel);
+
         }catch (ParamsException p) {
             resultInfo.setCode(p.getCode());
             resultInfo.setMsg(p.getMsg());

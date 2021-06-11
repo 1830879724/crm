@@ -1,17 +1,25 @@
 package com.xxxx.crm.model;
 
 public class UserModel {
-    private Integer userId;
+   // private Integer userId;
     private String UserName;
     private String trueName;
+    private  String userIdStr;//加密后的用户id
 
-
-    public Integer getUserId() {
+   /* public Integer getUserId() {
         return userId;
     }
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }*/
+
+    public String getUserIdStr() {
+        return userIdStr;
+    }
+
+    public void setUserIdStr(String userIdStr) {
+        this.userIdStr = userIdStr;
     }
 
     public String getUserName() {
