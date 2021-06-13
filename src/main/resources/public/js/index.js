@@ -19,6 +19,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
                 userName:data.field.username,
                 userPwd:data.field.password
             },
+            dataType:"json",
             //回调函数 返回结果
             success:function (result) { //result是回调函数，用来接受后端返回的数据
                 console.log(result);
