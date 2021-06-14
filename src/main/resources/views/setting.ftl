@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>基本资料</title>
-    <#include "../common.ftl">
+    <#include "common.ftl">
     <style>
         .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
     </style>
@@ -21,28 +21,28 @@
             <div class="layui-form-item">
                 <label class="layui-form-label required">手机</label>
                 <div class="layui-input-block">
-                    <input type="number" name="phone" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机"
+                    <input type="number" name="phone" lay-verify="required" readonly="readonly" lay-reqtext="手机不能为空" placeholder="请输入手机"
                            value="${(user.phone)!}" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">邮箱</label>
+                <label class="layui-form-label required">邮箱</label>
                 <div class="layui-input-block">
-                    <input type="email" name="email"  placeholder="请输入邮箱"  value="${(user.email)!}" class="layui-input">
+                    <input type="email" name="email"  placeholder="请输入邮箱" readonly="readonly" value="${(user.email)!}" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">真实姓名</label>
+                <label class="layui-form-label required">真实姓名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="trueName"  placeholder="请输入真实姓名"  value="${(user.trueName)!}" class="layui-input">
+                    <input type="text" name="trueName"  placeholder="请输入真实姓名" readonly="readonly" value="${(user.trueName)!}" class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <input type="hidden" name="id"   value="${(user.id)!}" >
-                    <button class="layui-btn" lay-submit lay-filter="saveBtn">确认保存</button>
-                </div>
-            </div>
+<#--            <div class="layui-form-item">-->
+<#--                <div class="layui-input-block">-->
+<#--                    <input type="hidden" name="id"   value="${(user.id)!}" >-->
+<#--                    <button class="layui-btn" lay-submit lay-filter="saveBtn">确认保存</button>-->
+<#--                </div>-->
+<#--            </div>-->
         </div>
     </div>
 </div>

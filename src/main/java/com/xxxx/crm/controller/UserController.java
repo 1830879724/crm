@@ -72,6 +72,17 @@ public class UserController extends BaseController  {
 
     @RequestMapping("toPasswordPage")
     public  String toPasswordPage(){
-        return "user/passWord";
+        return "user/password";
+    }
+
+    /**
+     *基本信息的页面
+     * @return
+     */
+
+    @RequestMapping("toSettingPage")
+    public  String toSettingPage(){
+        System.out.println("我进来了");
+        return  "setting";
     }
 }
