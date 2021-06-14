@@ -37,20 +37,10 @@ public class UserController extends BaseController  {
 
         ResultInfo resultInfo=new ResultInfo();
 
-        //通过try catch捕获Service异常，如果Service捕获到异常则登录,失败否则登录成功
-        try{
-            //调用Service层userLogin方法
-            UserModel userModel= userService.userLogin(userName, userPwd);
-            //设置ResultInfo的result的值（讲数据返回给请求）
-            resultInfo.setResult(userModel);
-        }catch (ParamsException p) {
-            resultInfo.setCode(p.getCode());
-            resultInfo.setMsg(p.getMsg());
-            p.printStackTrace();
-        }catch(Exception e){
-            resultInfo.setCode(500);
-            resultInfo.setMsg("登录失败");
-        }
+        //调用Service层userLogin方法
+        UserModel userModel= userService.userLogin(userName, userPwd);
+        //设置ResultInfo的result的值（讲数据返回给请求）
+        resultInfo.setResult(userModel);
         return resultInfo;
     }
 
@@ -68,24 +58,10 @@ public class UserController extends BaseController  {
        String oldPassWord,String newPassWord,String repeatPassWord){
 
         ResultInfo resultInfo=new ResultInfo();
-        try{
-            //获取cookie中用户的ID
-            Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);
-            //调用Server层修改密码方法
-            userService.updatePassWord(userId,oldPassWord,newPassWord,repeatPassWord);
-            //捕获异常
-        }catch (ParamsException e){
-            //打印异常
-            e.printStackTrace();
-            resultInfo.setCode(e.getCode());
-            resultInfo.setMsg(e.getMsg());
-        }catch (Exception e){
-            //打印异常
-            e.printStackTrace();
-            //捕获异常
-            resultInfo.setCode(500);
-            resultInfo.setMsg("用户修改密码失败!");
-        }
+        //获取cookie中用户的ID
+        Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);
+        //调用Server层修改密码方法
+        userService.updatePassWord(userId,oldPassWord,newPassWord,repeatPassWord);
         return resultInfo;
     }
 
