@@ -35,11 +35,23 @@ layui.use(['form','jquery','jquery_cookie'], function () {
                      *          保存用户信息，cookie未失效，则用户是登录状态
                      */
                     layer.msg("登录成功！",function() {
-                    //将用户信息设置到cookie中
-                        //登录成功跳转到首页
-                        $.cookie("userIdStr",result.result.userIdStr);
-                        $.cookie("userName",result.result.userName);
-                        $.cookie("trueName",result.result.trueName);
+                        //判断用户是否选择记住密码（判断复选框是否选择 选择则把cookie对象存放7天）
+                        if ($("#rememberMe").prop("checked")){
+                            //选择则设置cookie对象7天生效
+                            //将用户信息设置到cookie中
+                            //登录成功跳转到首页
+                            $.cookie("userIdStr",result.result.userIdStr,{expires:7});
+                            $.cookie("userName",result.result.userName,{expires:7});
+                            $.cookie("trueName",result.result.trueName,{expires:7});
+
+                        }else {
+                            //将用户信息设置到cookie中
+                            //登录成功跳转到首页
+                            $.cookie("userIdStr",result.result.userIdStr);
+                            $.cookie("userName",result.result.userName);
+                            $.cookie("trueName",result.result.trueName);
+                        }
+
                         window.location.href = ctx + "/main";
                     })
 
@@ -52,5 +64,7 @@ layui.use(['form','jquery','jquery_cookie'], function () {
 
         return false;//阻止表单提交，如果需要表单跳转去掉即可
     });
+
+
 
 });
