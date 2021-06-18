@@ -148,4 +148,21 @@
     where
         user_name= #{userName}
   </select>
+
+  <!--查询所有的销售人员-->
+  <select id="queryAllSale" resultType="java.util.Map">
+        SELECT
+        u.id,
+        u.user_name as uname
+        FROM
+        t_user u
+        LEFT JOIN t_user_role ur on u.id=ur.user_id
+        LEFT JOIN t_role  r on r.id=ur.role_id
+        WHERE
+        u.is_valid=1
+        and
+        r.is_valid=1
+        and
+        r.role_name='销售'
+  </select>
 </mapper>

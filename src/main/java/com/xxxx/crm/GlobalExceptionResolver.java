@@ -2,6 +2,7 @@ package com.xxxx.crm;
 
 import com.alibaba.fastjson.JSON;
 import com.xxxx.crm.base.ResultInfo;
+import com.xxxx.crm.exceptions.AuthException;
 import com.xxxx.crm.exceptions.NoLoginException;
 import com.xxxx.crm.exceptions.ParamsException;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.security.auth.login.LoginException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -59,7 +61,7 @@ public class GlobalExceptionResolver  implements HandlerExceptionResolver {
         //设置异常信息
         modelAndView.addObject("code",500);
         modelAndView.addObject("msg","异常异常,请重试..");
-        //判断o是否是方法对象
+        //判断handler是否是方法对象
         if (handler instanceof HandlerMethod){
             //类型转换
             HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -67,7 +69,7 @@ public class GlobalExceptionResolver  implements HandlerExceptionResolver {
             ResponseBody responseBody = handlerMethod.getMethod().getDeclaredAnnotation(ResponseBody.class);
 
             //判断 responseBody 对象是否为空（如果对象为空则表示返回的是视图，如果不为空则返回的是数据）
-            if (responseBody== null){
+            if (responseBody == null){
                 /**
                  * 方法返回视图
                  */
@@ -77,6 +79,12 @@ public class GlobalExceptionResolver  implements HandlerExceptionResolver {
                     //设置异常信息
                     modelAndView.addObject("code",p.getCode());
                     modelAndView.addObject("msg",p.getMsg());
+
+                }else if (e instanceof AuthException) { // 认证异常
+                    AuthException a  = (AuthException) e;
+                    // 设置异常信息
+                    modelAndView.addObject("code",a.getCode());
+                    modelAndView.addObject("msg",a.getMsg());
                 }
                 return  modelAndView;
             } else {
@@ -92,7 +100,13 @@ public class GlobalExceptionResolver  implements HandlerExceptionResolver {
                     ParamsException p =(ParamsException) e;
                     resultInfo.setCode(p.getCode());
                     resultInfo.setMsg(p.getMsg());
+
+                }else if (e instanceof AuthException) { // 认证异常
+                    AuthException a = (AuthException) e;
+                    resultInfo.setCode(a.getCode());
+                    resultInfo.setMsg(a.getMsg());
                 }
+
                 //设置响应类型和编码格式 （响应JSON格式的数据） 用流输出可能会中文乱码 所以先设置编码格式
                 response.setContentType("application/json;charset=utf-8");
                 // 得到字符输出流
@@ -118,6 +132,6 @@ public class GlobalExceptionResolver  implements HandlerExceptionResolver {
             }
         }
 
-        return null;
+        return modelAndView;
     }
 }

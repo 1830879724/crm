@@ -2,12 +2,10 @@ package com.xxxx.crm.controller;
 
 import com.xxxx.crm.base.BaseController;
 import com.xxxx.crm.base.ResultInfo;
-import com.xxxx.crm.exceptions.ParamsException;
 import com.xxxx.crm.model.UserModel;
 import com.xxxx.crm.service.UserService;
 
 import com.xxxx.crm.utils.LoginUserUtil;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("user")
@@ -82,7 +83,17 @@ public class UserController extends BaseController  {
 
     @RequestMapping("toSettingPage")
     public  String toSettingPage(){
-        System.out.println("我进来了");
         return  "setting";
+    }
+
+
+    /**
+     * 查询所有的销售人员
+     * @return
+     */
+    @GetMapping("queryAllSale")
+    @ResponseBody
+    public List<Map<String, Object>> queryAllSale(){
+        return userService.queryAllSale();
     }
 }

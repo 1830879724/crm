@@ -1,7 +1,6 @@
 package com.xxxx.crm.utils;
 
 
-import com.github.pagehelper.PageException;
 import com.xxxx.crm.exceptions.ParamsException;
 
 public class AssertUtil {
