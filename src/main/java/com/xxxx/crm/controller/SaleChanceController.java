@@ -3,9 +3,11 @@ package com.xxxx.crm.controller;
 
 import com.xxxx.crm.base.BaseController;
 import com.xxxx.crm.base.ResultInfo;
+import com.xxxx.crm.enums.StateStatus;
 import com.xxxx.crm.query.SaleChaceQuery;
 import com.xxxx.crm.service.SaleChanceService;
 import com.xxxx.crm.utils.CookieUtil;
+import com.xxxx.crm.utils.LoginUserUtil;
 import com.xxxx.crm.vo.SaleChance;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +29,23 @@ public class SaleChanceController extends BaseController {
 
     /**
      *营销机会数据查询（分页多条件查询）
+     * 如果flag的值不为空，值为1 则表示当前查询的客户开发计划,否则为营销机会数据
      * @param saleChaceQuery
      * @return
      */
     @RequestMapping("list")
     @ResponseBody
-    public Map<String,Object> querySaleChaceByParams(SaleChaceQuery saleChaceQuery){
+    public Map<String,Object> querySaleChaceByParams(SaleChaceQuery saleChaceQuery ,
+                                                     Integer flag,HttpServletRequest request){
+        if (flag !=null && flag == 1){
+            //当前查询的是客户开发计划
+            //设置分配计划
+            saleChaceQuery.setState(StateStatus.STATED.getType());
+            //设置指派人(当前登录用的的ID)
+            //从cookie中获取当前登录用户的ID
+            Integer userId= LoginUserUtil.releaseUserIdFromCookie(request);
+            saleChaceQuery.setAssignMan(userId);
+        }
         return saleChanceService.querySaleChaceByParams(saleChaceQuery);
 
     }

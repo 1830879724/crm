@@ -201,9 +201,9 @@ public class SaleChanceService extends BaseService<SaleChance,Integer> {
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public void deleteSaleChance(Integer[] ids){
-        // 判断要删除的id是否为空
-        AssertUtil.isTrue(null == ids || ids.length == 0, "请选择需要删除的数据！");
-        // 删除数据
-        AssertUtil.isTrue(saleChanceMapper.deleteBatch(ids) < 0, "营销机会数据删除失败！");
+        //判断id是否为空
+        AssertUtil.isTrue(null == ids || ids.length<1,"待删除的记录不存在");
+        //执行逻辑删除
+        AssertUtil.isTrue(saleChanceMapper.deleteBatch(ids) !=ids.length,"删除失败!");
     }
 }

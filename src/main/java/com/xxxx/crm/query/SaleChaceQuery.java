@@ -17,6 +17,26 @@ public class SaleChaceQuery extends BaseQuery {
     private Integer state;//分配状态 0=未分配  1=已分配
 
 
+    //客户开发计划 条件查询
+    private  String devResult;//开发状态
+
+    private  Integer assignMan;//指派人
+
+    public String getDevResult() {
+        return devResult;
+    }
+
+    public void setDevResult(String devResult) {
+        this.devResult = devResult;
+    }
+
+    public Integer getAssignMan() {
+        return assignMan;
+    }
+
+    public void setAssignMan(Integer assignMan) {
+        this.assignMan = assignMan;
+    }
 
     public String getCustomerName() {
         return customerName;
