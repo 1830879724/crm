@@ -55,9 +55,11 @@ layui.use(['table','layer'],function(){
             //打开添加或修改的窗口
             openAddOrUpdateCusDevPlanDialog();
         }else if (data.event == "success"){//成功
-
+            //更新营销机会的开发状态
+            updateSaleChanceDevPlan(2);//开发失败
         }else if (data.event == "failed"){//失败
-
+             //更新营销机会的开发状态
+            updateSaleChanceDevPlan(3);//开发失败
         }
     });
 
@@ -117,6 +119,32 @@ layui.use(['table','layer'],function(){
            });
         });
 
+    }
+
+    /**
+     * 更新营销机会的开发状态
+     * @param devResult
+     */
+    function updateSaleChanceDevPlan(devResult){
+        //弹出确认框，询问用户是否删除
+        layer.confirm("确认执行该操作吗？",{icon:3,title:"营销机会管理"},function (index){
+           //得到需要被更新的营销机会ID  通过隐藏域获取
+            var sId=$("[name='id']").val();
+            //发送Ajax请求 更新开发状态
+            $.post(ctx +'/sale_chance/updateSaleChanceDevResult',{id:sId,devResult:devResult},function (result){
+                if (result.code == 200){
+                    //提示成功
+                    layer.msg('更新成功',{icon: 6});
+                    //关闭窗口
+                    layer.closeAll("iframe");
+                    //更新成功刷新表格
+                    parent.location.reload();
+                }else {
+                    layer.msg(result.msg,{icon:5})
+                }
+            })
+
+        });
     }
 
 });

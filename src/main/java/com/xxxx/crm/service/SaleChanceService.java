@@ -206,4 +206,23 @@ public class SaleChanceService extends BaseService<SaleChance,Integer> {
         //执行逻辑删除
         AssertUtil.isTrue(saleChanceMapper.deleteBatch(ids) !=ids.length,"删除失败!");
     }
+
+    /**
+     * 更新开发状态
+     * @param id
+     * @param devResult
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void updateSaleChanceDevResult(Integer id, Integer devResult) {
+        //判断id是否为空
+        AssertUtil.isTrue(null==id,"待更新记录不存在!");
+        //通过ID查询营销机会数据
+        SaleChance saleChance=saleChanceMapper.selectByPrimaryKey(id);
+        //判断对象是否为空
+        AssertUtil.isTrue(null==saleChance,"待更新记录不存在!");
+        //设置开发状态
+        saleChance.setDevResult(devResult);
+        //执行更新操作
+        AssertUtil.isTrue(saleChanceMapper.updateByPrimaryKeySelective(saleChance)!=1,"开发状态更新失败!");
+    }
 }
