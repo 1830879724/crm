@@ -102,4 +102,17 @@ public class CusDevPlanController  extends BaseController {
         request.setAttribute("cusDevPlan",cusDevPlan);
     return  "cusDevPlan/add_update";
     }
+
+
+    /**
+     * 删除计划项
+     * @param id
+     * @return
+     */
+    @RequestMapping("delete")
+    @ResponseBody
+    public ResultInfo deleteCusDevPlan(Integer id){
+        cusDevPlanService.deleteCusDevPlan(id);
+        return success("计划项删除成功！");
+    }
 }

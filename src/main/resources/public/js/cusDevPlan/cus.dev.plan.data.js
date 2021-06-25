@@ -70,7 +70,8 @@ layui.use(['table','layer'],function(){
             //打开添加或修改的窗口
             openAddOrUpdateCusDevPlanDialog(data.data.id);
         }else if (data.event =="del"){//删除操作
-
+            //删除计划项的数据
+            deleteCusDevPlan(data.data.id);
         }
     })
 
@@ -94,6 +95,28 @@ layui.use(['table','layer'],function(){
             //设置可大可小化
             maxmin:true
         });
+    }
+
+    /**
+     * 删除计划项
+     */
+    function deleteCusDevPlan(id){
+        //弹出确认框, 询问是否删除
+        layer.confirm("确认删除该记录吗？",{icon:3,title:'开发项数据管理'},function (index){
+           $.post(ctx + '/cus_dev_plan/delete', {id:id},function (result){
+               //判断删除结果
+               if (result.code == 200){
+                    //提示成功
+                   layer.msg('删除成功',{icon: 6});
+                   //删除成功刷新表格
+                   tableIns.reload();
+               }else {
+                   //提示失败原因
+                   layer.msg(result.msg,{icon: 5});
+               }
+           });
+        });
+
     }
 
 });
