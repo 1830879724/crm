@@ -7,6 +7,7 @@ import com.xxxx.crm.dao.UserMapper;
 import com.xxxx.crm.model.UserModel;
 import com.xxxx.crm.utils.AssertUtil;
 import com.xxxx.crm.utils.Md5Util;
+import com.xxxx.crm.utils.PhoneUtil;
 import com.xxxx.crm.utils.UserIDBase64;
 import com.xxxx.crm.vo.User;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -158,4 +160,60 @@ public class UserService extends BaseService<User,Integer> {
     public List<Map<String,Object>> queryAllSale(){
         return userMapper.queryAllSale();
     }
+
+
+    /**
+     * 添加用户
+     * 1、参数校验
+     *      用户名userName 非空 且唯一
+     *      邮箱email   非空
+     *      手机号phone  非空 格式正确
+     * 2、设置参数的默认值
+     *       isValid 1
+     *       createDate 系统当前时间
+     *       updateDate 系统当前时间
+     *       默认密码    123456->md5加密
+     * 3、执行添加操作，判断受影响的行数
+     * @param user
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void addUser(User user){
+            //1、参数校验
+      checkUserParams(user.getUserName(),user.getEmail(),user.getPhone());
+            //2、设置参数的默认值
+        user.setIsValid(1);
+        user.setCreateDate(new Date());
+        user.setUpdateDate(new Date());
+        //设置默认密码
+        user.setUserPwd(Md5Util.encode("123456"));
+        // 3、执行添加操作，判断受影响的行数
+        AssertUtil.isTrue(userMapper.insertSelective(user) !=1,"用户添加失败");
+    }
+
+    /**
+     * 参数校验
+     *          用户名userName 非空 且唯一
+     *          邮箱email   非空
+     *          手机号phone  非空 格式正确
+     * @param userName
+     * @param email
+     * @param phone
+     */
+    private void checkUserParams(String userName, String email, String phone) {
+        //判断用户名userName 非空 且唯一
+        AssertUtil.isTrue(StringUtils.isBlank(userName),"用户名不能为空");
+        //判断用户名是否唯一  通过用户名查询用户对象
+        User temp = userMapper.queryUserByName(userName);
+        //如果用户对象为空，则表示用户名可用，如果用户对象不为空，则表示用户名不可用
+        AssertUtil.isTrue(null !=temp,"用户名已存在，请重新输入!");
+        //判断用户邮箱不为空
+        AssertUtil.isTrue(StringUtils.isBlank(email),"用户邮箱不能为空!");
+        //手机号不为空
+        AssertUtil.isTrue(StringUtils.isBlank(phone),"手机号不能为空!");
+        //校验手机号格式
+        AssertUtil.isTrue(!PhoneUtil.isMobile(phone),"手机号格式不正确!");
+
+    }
+
+
 }

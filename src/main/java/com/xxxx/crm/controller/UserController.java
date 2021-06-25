@@ -3,9 +3,11 @@ package com.xxxx.crm.controller;
 import com.xxxx.crm.base.BaseController;
 import com.xxxx.crm.base.ResultInfo;
 import com.xxxx.crm.model.UserModel;
+import com.xxxx.crm.query.UserQuery;
 import com.xxxx.crm.service.UserService;
 
 import com.xxxx.crm.utils.LoginUserUtil;
+import com.xxxx.crm.vo.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,5 +97,49 @@ public class UserController extends BaseController  {
     @ResponseBody
     public List<Map<String, Object>> queryAllSale(){
         return userService.queryAllSale();
+    }
+
+
+    /**
+     * 分页多条件查询用户列表
+     * @param userQuery
+     * @return
+     */
+    @RequestMapping("list")
+    @ResponseBody
+    public Map<String,Object>  selectByParams(UserQuery userQuery){
+        return userService.queryByParamsForTable(userQuery);
+
+    }
+
+    /**
+     * 进入用户列表界面
+     * @return
+     */
+    @RequestMapping("index")
+    public String index(){
+        return "user/user";
+
+    }
+
+    /**
+     * 用户添加
+     * @param user
+     * @return
+     */
+    @PostMapping("add")
+    @ResponseBody
+    public ResultInfo addUser(User user){
+        userService.addUser(user);
+        return success("用户添加成功");
+    }
+
+    /**
+     * 打开添加或修改用户界面
+     * @return
+     */
+    @RequestMapping("toAddOrUpdateUserPage")
+    public String toAddOrUpdateUserPage(){
+        return "user/add_update";
     }
 }

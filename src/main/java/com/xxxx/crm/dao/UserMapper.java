@@ -14,4 +14,6 @@ public interface UserMapper  extends BaseMapper<User,Integer>{
     //查询所有的销售人员
     List<Map<String,Object>> queryAllSale();
 
+
+
 }
