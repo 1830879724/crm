@@ -17,16 +17,22 @@ layui.use(['form', 'layer'], function () {
      * 表单Submit监听
      */
     form.on('submit(addOrUpdateCusDevPlan)',function (data){
-            //得到所有的表单元素的值
-        var formData =data.field;
-        //请求地址
-        var url = ctx + "/cus_dev_plan/add"
         //提交数据时的加载层
         var  index =top.layer.msg("数据提交中，请稍后...",{
             icon:16,//图标
             time:false,//不关闭
             shade:0.8//设置遮罩的透明度
         });
+            //得到所有的表单元素的值
+        var formData =data.field;
+        //请求地址
+        var url = ctx + "/cus_dev_plan/add";
+
+        //判断计划项ID是否为空（不为空则表示更新）
+        if($('[name=id]').val()){
+            url = ctx + "/cus_dev_plan/update";
+        }
+
         $.post(url,formData,function (result) {
             //判断
             if (result.code == 200){

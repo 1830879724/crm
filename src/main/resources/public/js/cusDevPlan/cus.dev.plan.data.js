@@ -62,11 +62,30 @@ layui.use(['table','layer'],function(){
     });
 
     /**
+     * 监听行工具栏
+     */
+
+    table.on('tool(cusDevPlans)',function (data){
+        if (data.event == "edit"){//更新操作
+            //打开添加或修改的窗口
+            openAddOrUpdateCusDevPlanDialog(data.data.id);
+        }else if (data.event =="del"){//删除操作
+
+        }
+    })
+
+    /**
      * 打开添加或修改的窗口
      */
-    function openAddOrUpdateCusDevPlanDialog(){
+    function openAddOrUpdateCusDevPlanDialog(id){
         var title = "计划项管理  - 添加计划项";
         var  url = ctx +"/cus_dev_plan/toAddOrUpdateCusDevPlanPage?sId=" +$("[name='id']").val();
+        //判断计划项的ID是否为空，如果为空表示添加 否则为更新
+        if (id!=null && id !=''){
+            //更新计划项
+            title = "计划项管理  - 更新计划项";
+            url+= "&id=" +id;
+        }
         layui.layer.open({
             title:title,
             type:2,

@@ -75,15 +75,31 @@ public class CusDevPlanController  extends BaseController {
         return success("计划项添加成功！");
     }
 
+    /**
+     * 更新计划项
+     * @param cusDevPlan
+     * @return
+     */
+    @RequestMapping("update")
+    @ResponseBody
+    public ResultInfo updateCusDevPlan(CusDevPlan cusDevPlan){
+        cusDevPlanService.updateCusDevPlan(cusDevPlan);
+        return success("计划项更新成功！");
+    }
+
 
     /**
      * 进入添加或修改页面
      * @return
      */
     @RequestMapping("toAddOrUpdateCusDevPlanPage")
-    public String toAddOrUpdateCusDevPlanPage(Integer sId,HttpServletRequest request){
+    public String toAddOrUpdateCusDevPlanPage(Integer sId,HttpServletRequest request,Integer id){
         //将营销机会ID设置到请求域中给计划项页面
         request.setAttribute("sId",sId);
+        //通过计划项ID查询记录
+        CusDevPlan cusDevPlan=cusDevPlanService.selectByPrimaryKey(id);
+        //将计划项数据设置到请求域中
+        request.setAttribute("cusDevPlan",cusDevPlan);
     return  "cusDevPlan/add_update";
     }
 }

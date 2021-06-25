@@ -76,6 +76,31 @@ public class CusDevPlanService extends BaseService<CusDevPlan,Integer> {
 
     }
 
+    /**
+     * 营销机会更新
+     *  1、参数校验：
+     *          计划项ID   非空   数据存在
+     *          1.营销机会ID 非空、数据存在
+     *          2.计划项内容  非空
+     *          3.计划时间    非空
+     *  2、设置参数的默认值
+     *          修改时间  系统当前时间
+     *  3、执行更新操作   判断受影响的行数
+     * @param cusDevPlan
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void updateCusDevPlan(CusDevPlan cusDevPlan){
+        //1、参数校验
+        AssertUtil.isTrue(null == cusDevPlan.getId() ||
+                cusDevPlanMapper.selectByPrimaryKey(cusDevPlan.getId()) ==null,"数据异常请重试");
+        checkCusDevPlanParams(cusDevPlan);
+        //2、设置参数的默认值
+        //修改时间    系统当前时间
+        cusDevPlan.setUpdateDate(new Date());
+        //3、执行更新操作   判断受影响的行数
+        AssertUtil.isTrue(cusDevPlanMapper.updateByPrimaryKeySelective(cusDevPlan)!=1,"计划项更新失败");
+    }
+
 
     /**
      * 1、参数校验：
@@ -93,4 +118,7 @@ public class CusDevPlanService extends BaseService<CusDevPlan,Integer> {
         //计划时间    非空
         AssertUtil.isTrue(null==cusDevPlan.getPlanDate(),"计划时间不能为空");
     }
+
+
+
 }
