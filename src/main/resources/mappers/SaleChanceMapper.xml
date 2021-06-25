@@ -240,7 +240,7 @@
         and s.state =#{state}
       </if>
       <!--根据开发状态查询-->
-      <if test="devResult !=null ">
+      <if test="devResult !=null and devResult!= ''">
         and s.dev_result =#{devResult}
       </if>
       <!--根据指派人查询-->

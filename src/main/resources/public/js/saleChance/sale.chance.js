@@ -46,6 +46,7 @@ layui.use(['table','layer'],function(){
             {field:'userName',title:'分配人',align:'center'},
             {field:'assignTime',title:'分配时间',align:'center'},
             {field:'createDate',title:'创建时间',align:'center'},
+            {field:'updateDate',title:'修改时间',align:'center'},
             {field:'state',title:'分配状态',align:'center',templet: function (d) {
                //调用函数，返回格式化的结果
                     return formatterState(d.state);
