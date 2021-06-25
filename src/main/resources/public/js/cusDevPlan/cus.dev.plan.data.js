@@ -47,5 +47,34 @@ layui.use(['table','layer'],function(){
         ]]
 
     });
+    /**
+     * 监听头部工具栏
+     */
+    table.on('toolbar(cusDevPlans)',function (data){
+        if (data.event == "add"){//添加
+            //打开添加或修改的窗口
+            openAddOrUpdateCusDevPlanDialog();
+        }else if (data.event == "success"){//成功
+
+        }else if (data.event == "failed"){//失败
+
+        }
+    });
+
+    /**
+     * 打开添加或修改的窗口
+     */
+    function openAddOrUpdateCusDevPlanDialog(){
+        var title = "计划项管理  - 添加计划项";
+        var  url = ctx +"/cus_dev_plan/toAddOrUpdateCusDevPlanPage?sId=" +$("[name='id']").val();
+        layui.layer.open({
+            title:title,
+            type:2,
+            content: url,
+            area:["500px","300px"],
+            //设置可大可小化
+            maxmin:true
+        });
+    }
 
 });

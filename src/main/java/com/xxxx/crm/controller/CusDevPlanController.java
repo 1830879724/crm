@@ -49,7 +49,7 @@ public class CusDevPlanController  extends BaseController {
         SaleChance saleChance= saleChanceService.selectByPrimaryKey(id);
         //将对象设置到请求域中
         request.setAttribute("saleChance",saleChance);
-        return "/cusDevPlan/cus_dev_plan_data";
+        return "cusDevPlan/cus_dev_plan_data";
     }
 
     /**
@@ -73,5 +73,17 @@ public class CusDevPlanController  extends BaseController {
     public ResultInfo addCusDevPlan(CusDevPlan cusDevPlan){
         cusDevPlanService.addCusDevPlan(cusDevPlan);
         return success("计划项添加成功！");
+    }
+
+
+    /**
+     * 进入添加或修改页面
+     * @return
+     */
+    @RequestMapping("toAddOrUpdateCusDevPlanPage")
+    public String toAddOrUpdateCusDevPlanPage(Integer sId,HttpServletRequest request){
+        //将营销机会ID设置到请求域中给计划项页面
+        request.setAttribute("sId",sId);
+    return  "cusDevPlan/add_update";
     }
 }
