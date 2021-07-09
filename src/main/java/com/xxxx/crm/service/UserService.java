@@ -179,7 +179,7 @@ public class UserService extends BaseService<User,Integer> {
     @Transactional(propagation = Propagation.REQUIRED)
     public void addUser(User user){
             //1、参数校验
-        checkUserParams(user.getUserName(),user.getEmail(),user.getPhone());
+        checkUserParams(user.getUserName(),user.getEmail(),user.getPhone(),null);
             //2、设置参数的默认值
         user.setIsValid(1);
         user.setCreateDate(new Date());
@@ -199,19 +199,52 @@ public class UserService extends BaseService<User,Integer> {
      * @param email
      * @param phone
      */
-    private void checkUserParams(String userName, String email, String phone) {
+    private void checkUserParams(String userName, String email, String phone,Integer userId) {
         //判断用户名userName 非空 且唯一
         AssertUtil.isTrue(StringUtils.isBlank(userName),"用户名不能为空");
         //判断用户名是否唯一  通过用户名查询用户对象
         User temp = userMapper.queryUserByName(userName);
+        //用户对象为空，表示用户名可用，反之不可用
+        //添加操作，数据库中无数据，通过名称查到数据，则表示用户名被占用
+        //修改操作数据量中有对应的记录，通过用户名查到数据，可能是记录本身也可能是别的记录
         //如果用户对象为空，则表示用户名可用，如果用户对象不为空，则表示用户名不可用
-        AssertUtil.isTrue(null !=temp,"用户名已存在，请重新输入!");
+        AssertUtil.isTrue(null !=temp && !(temp.getId().equals(userId)),"用户名已存在，请重新输入!");
         //判断用户邮箱不为空
         AssertUtil.isTrue(StringUtils.isBlank(email),"用户邮箱不能为空!");
         //手机号不为空
         AssertUtil.isTrue(StringUtils.isBlank(phone),"手机号不能为空!");
         //校验手机号格式
         AssertUtil.isTrue(!PhoneUtil.isMobile(phone),"手机号格式不正确!");
+
+    }
+
+    /**
+     * 更新用户信息
+        1、参数校验
+                判断用户id是否为空 且数据存在
+                用户名userName 非空 且唯一
+                邮箱email   非空
+                手机号phone  非空 格式正确
+        2、设置参数的默认值
+                updateDate 系统当前时间
+        3、执行更新操作 ，判断受影响的行数
+     * @param user
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void updateUser(User user){
+        //判断用户id是否为空 且数据存在
+        AssertUtil.isTrue(null ==user.getId(),"该记录不存在!");
+        //通过id查询数据
+        User temp =userMapper.selectByPrimaryKey(user.getId());
+        //判断是否存在
+        AssertUtil.isTrue(null==temp,"待更新记录不存在!");
+        //1、参数校验
+        checkUserParams(user.getUserName(),user.getEmail(),user.getPhone(),user.getId());
+        //2、设置参数的默认值
+        user.setUpdateDate(new Date());
+        //3、执行更新操作 ，判断受影响的行数
+        AssertUtil.isTrue(userMapper.updateByPrimaryKeySelective(user)!=1,"用户更新失败");
+
 
     }
 
