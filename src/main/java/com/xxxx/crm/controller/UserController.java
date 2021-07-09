@@ -139,7 +139,14 @@ public class UserController extends BaseController  {
      * @return
      */
     @RequestMapping("toAddOrUpdateUserPage")
-    public String toAddOrUpdateUserPage(){
+    public String toAddOrUpdateUserPage(Integer id,HttpServletRequest request){
+        //判断id是否为空不为空表示更新操作
+        if (id!=null){
+            //通过id查询用户对象
+            User user=userService.selectByPrimaryKey(id);
+            //将数据设置到请求域中
+            request.setAttribute("userInfo",user);
+        }
         return "user/add_update";
     }
     /**

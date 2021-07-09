@@ -83,14 +83,31 @@ layui.use(['table','layer'],function(){
     })
 
     /**
+     * 监听行工具栏
+     */
+    table.on('tool(users)',function (data){
+        if (data.event == "edit"){//更新操作
+            //打开添加或修改用户的对话框
+            openAddOrUpdateUserDialog(data.data.id);
+        }
+    })
+
+    /**
      * 打开添加或修改用户的对话框
      */
-    function openAddOrUpdateUserDialog(){
+    function openAddOrUpdateUserDialog(id){
         var title = "<h3>用户管理 -添加用户</h3>";
+        var url =ctx + "/user/toAddOrUpdateUserPage";
+
+        //判断id是否为空如果为空则为添加操作反之更新操作
+        if (id != null && id != ''){
+            title = "<h3>用户管理 -更新用户</h3>";
+            url += "?id="+id;//传递主键查询数据
+        }
         layui.layer.open({
             title:title,
             type:2,
-            content: ctx + "/user/toAddOrUpdateUserPage",
+            content:url,
             area:["650px","400px"],
             //设置可大可小化
             maxmin:true

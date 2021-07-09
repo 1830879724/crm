@@ -26,7 +26,11 @@ layui.use(['form', 'layer'], function () {
         //得到所有的表单元素的值
         var formData =data.field;
         //请求地址
-        var url = ctx + "/user/add";
+        var url = ctx + "/user/add";//默认添加
+        //判断用户id是否为空不为空则更新操作
+        if ($("[name='id']").val()){
+            var url = ctx + "/user/update";
+        }
 
         //判断计划项ID是否为空（不为空则表示更新）
         $.post(url,formData,function (result) {
