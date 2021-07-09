@@ -179,7 +179,7 @@ public class UserService extends BaseService<User,Integer> {
     @Transactional(propagation = Propagation.REQUIRED)
     public void addUser(User user){
             //1、参数校验
-      checkUserParams(user.getUserName(),user.getEmail(),user.getPhone());
+        checkUserParams(user.getUserName(),user.getEmail(),user.getPhone());
             //2、设置参数的默认值
         user.setIsValid(1);
         user.setCreateDate(new Date());

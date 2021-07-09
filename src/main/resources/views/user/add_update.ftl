@@ -5,7 +5,7 @@
     </head>
     <body class="childrenBody">
         <form class="layui-form" style="width:80%;">
-            <input name="id" type="hidden" value="${(user.id)!}"/>
+            <input name="id" type="hidden" value=""/>
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">用户名</label>
                 <div class="layui-input-block">
