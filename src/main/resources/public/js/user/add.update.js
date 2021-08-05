@@ -1,8 +1,8 @@
-layui.use(['form', 'layer'], function () {
+layui.use(['form', 'layer','formSelects'], function () {
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery;
-
+    var formSelects=layui.formSelects;
 
 
     /**
@@ -52,5 +52,17 @@ layui.use(['form', 'layer'], function () {
         // 阻止表单提交
         return false;
     });
-    
+
+    /**
+     * 加载下拉框
+     */
+
+    formSelects.config('selectId',{
+        type:"post",//请求方式
+        searchUrl:ctx+"/role/queryAllRole",//请求地址
+        keyName:'roleName',//下拉框中的文本内容，与返回的数据中的key一致
+        keyVal:'id',
+    },true);
+
+
 });

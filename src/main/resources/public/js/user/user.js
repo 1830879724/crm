@@ -191,7 +191,7 @@ layui.use(['table','layer'],function(){
             title:title,
             type:2,
             content:url,
-            area:["650px","400px"],
+            area:["650px","450px"],
             //设置可大可小化
             maxmin:true
         });
