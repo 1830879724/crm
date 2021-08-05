@@ -248,5 +248,16 @@ public class UserService extends BaseService<User,Integer> {
 
     }
 
-
+    /**
+     用户删除：
+            判断ids是否为空长度是否大于0
+     * @param ids
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteByids(Integer[] ids) {
+        //判断ids是否为空长度是否大于0
+        AssertUtil.isTrue(ids==null||ids.length==0,"待删除记录不存在");
+        //执行删除操作
+        AssertUtil.isTrue(userMapper.deleteBatch(ids) !=ids.length,"用户删除失败");
+    }
 }

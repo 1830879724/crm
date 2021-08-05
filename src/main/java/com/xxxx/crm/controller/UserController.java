@@ -161,4 +161,16 @@ public class UserController extends BaseController  {
         return success("用户更新成功");
     }
 
+    /**
+     * 删除操作
+     * @param ids
+     * @return
+     */
+    @PostMapping("delete")
+    @ResponseBody
+    public ResultInfo deleteUser(Integer[] ids){
+        userService.deleteByids(ids);
+        return success("用户删除成功");
+    }
+
 }
