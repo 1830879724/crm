@@ -78,9 +78,57 @@ layui.use(['table','layer'],function(){
             //打开添加或修改用户的对话框
             openAddOrUpdateUserDialog();
         }else if (data.event == "del"){//删除操作
-
+            //获取被选中的数据信息
+            var checkStatus =table.checkStatus(data.config.id);
+            console.log(checkStatus);
+            //删除多个用户记录
+            deleteUsers(checkStatus.data);
         }
     })
+
+    /**
+     * 删除多条用户记录
+     * @param userData
+     */
+    function deleteUsers(userData){
+        //判断用户是否选择要删除的记录
+        if (userData.length ==0){
+            layer.msg("请选择删除记录",{icon:5});
+            return;
+        }
+        //询问用户是否确认删除
+        layer.confirm('确定删除选中的记录？',{icon:3,title:"用户管理"},function (index) {
+            //关闭确认框
+            layer.close(index);
+            //传递的参数是数组
+            var ids = "ids=";
+            //循环选中的行数据记录
+            for (var i =0;i<userData.length;i++){
+                if (i<userData.length-1){
+                    ids =ids +userData[i].id + "&ids=";
+                }else {
+                    ids =ids +userData[i].id
+                }
+            }
+            //发送ajax请求,执行删除用户
+            $.ajax({
+                type:"post",
+                url: ctx +"/user/delete",
+                data:ids,//传递的参数是数据
+                success:function(result){
+                    //判断删除结果
+                    if (result.code == 200){
+                        layer.msg("删除成功",{icon:6});
+                        //刷新表格
+                        tableIns.reload();
+                    }else {
+                        //提示失败
+                        layer.msg(result.msg,{icon: 5})
+                    }
+                }
+            })
+        });
+    }
 
     /**
      * 监听行工具栏
@@ -89,8 +137,43 @@ layui.use(['table','layer'],function(){
         if (data.event == "edit"){//更新操作
             //打开添加或修改用户的对话框
             openAddOrUpdateUserDialog(data.data.id);
+        } else if (data.event=='del'){//删除记录
+            //删除单条记录
+            deleteUser(data.data.id);
+
         }
     })
+
+    /**
+     * 删除单条用户记录
+     * @param id
+     */
+    function deleteUser(id){
+//提示用户是否删除 ,弹出层
+        layer.confirm('确定删除该记录嘛！',{icon:3,title:"用户管理"},function (index){
+            //关闭确认框
+            layer.close(index);
+            //发送对应的ajax请求删除记录
+            $.ajax({
+                type:"post",
+                url: ctx + "/user/delete",
+                data:{
+                    ids:id
+                },
+                success:function (result) {
+                    //判断删除结果
+                    if (result.code == 200){
+                        layer.msg("删除成功",{icon:6});
+                        //刷新表格
+                        tableIns.reload();
+                    }else {
+                        //提示失败
+                        layer.msg(result.msg,{icon: 5})
+                    }
+                }
+            });
+        });
+    }
 
     /**
      * 打开添加或修改用户的对话框
