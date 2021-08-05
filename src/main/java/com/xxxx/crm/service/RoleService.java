@@ -19,7 +19,7 @@ public class RoleService extends BaseService<Role,Integer> {
      * 查询所有用户列表
      * @return
      */
-    public List<Map<String,Object>> queryAllRole(){
-        return roleMapper.queryAllRole();
+    public List<Map<String,Object>> queryAllRole(Integer userId){
+        return roleMapper.queryAllRole(userId);
     }
 }

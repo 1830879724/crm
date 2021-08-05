@@ -23,8 +23,8 @@ public class RoleController  extends BaseController {
      */
     @RequestMapping("queryAllRole")
     @ResponseBody
-    public List<Map<String,Object>> queryAllRole(){
-        return roleService.queryAllRole();
+    public List<Map<String,Object>> queryAllRole(Integer userId){
+        return roleService.queryAllRole(userId);
     }
 
 }

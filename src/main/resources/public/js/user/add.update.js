@@ -56,10 +56,10 @@ layui.use(['form', 'layer','formSelects'], function () {
     /**
      * 加载下拉框
      */
-
+    var userId=$("[name='id']").val();
     formSelects.config('selectId',{
         type:"post",//请求方式
-        searchUrl:ctx+"/role/queryAllRole",//请求地址
+        searchUrl:ctx+"/role/queryAllRole?userId="+userId,//请求地址
         keyName:'roleName',//下拉框中的文本内容，与返回的数据中的key一致
         keyVal:'id',
     },true);
