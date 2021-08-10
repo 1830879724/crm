@@ -73,14 +73,41 @@ layui.use(['table','layer'],function(){
               if (data.event == "add"){//添加操作
                      //打开添加或修改用户的对话框
                      openAddOrUpdateRoleDialog();
-              }else if (data.event == "del"){//删除操作
+              }else if (data.event == "grant"){//授权操作
                      //获取被选中的数据信息
                      var checkStatus =table.checkStatus(data.config.id);
                      console.log(checkStatus);
-                     //删除多个用户记录
-                     //deleteUsers(checkStatus.data);
+                     //打开授权窗口
+                     openAddGrantDialog(checkStatus.data);
               }
        })
+
+       /**
+        * 打开授权界面
+        */
+       function openAddGrantDialog(data){
+              //判断是否选择角色记录
+              if (data.length == 0){
+                     layer.msg("请选择要授权的用户",{icon:5});
+                     return;
+              }
+              //只支持单个用户授权
+              if (data.length >1){
+                     layer.msg("暂不支持多个角色授权",{icon:5});
+                     return;
+              }
+
+              var url = ctx + "module/toAddGrantPage?roleId="+data[0].id;
+              var title= "<h3>角色管理 - 角色授权</h3>";
+              layui.layer.open({
+                     title:title,
+                     type:2,
+                     content:url,
+                     area:["650px","450px"],
+                     //设置可大可小化
+                     maxmin:true
+              });
+       }
 
        /**
         * 打开添加或修改用户的对话框
