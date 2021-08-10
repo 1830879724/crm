@@ -35,6 +35,14 @@
       #{isValid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
       )
   </insert>
+    <!--
+    添加操作默认返回的是受影响的行数，可以设置返回主键（主键自增长）
+    useGeneratedKeys="true" 表示使用主键为自增长 赋值给keyProperty
+    keyProperty="id" java bean里
+    keyColumn="id" 对应的列
+
+    返回的主键会自动设置到实体类中对应的id字段中
+    -->
   <insert id="insertSelective" parameterType="com.xxxx.crm.vo.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >

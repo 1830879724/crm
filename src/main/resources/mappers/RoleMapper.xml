@@ -70,7 +70,7 @@
   </update>
 
     <!--  查询所有用户列表-->
-    <select id="queryAllRole" resultType="java.util.Map"  parameterType="int">
+    <select id="queryAllRole" parameterType="int" resultType="java.util.Map">
       SELECT
         r.id,
         r.role_name AS roleName,
@@ -78,8 +78,7 @@
 
           WHEN IFNULL( temp.id, 0 ) = 0 THEN
             '' ELSE 'selected'
-          END
-        as 'selected'
+          END as 'selected'
       FROM
         t_role r
           LEFT JOIN ( SELECT r.id FROM t_role r LEFT JOIN t_user_role ur ON r.id = ur.role_id WHERE user_id = #{userId} ) temp ON r.id = temp.id
