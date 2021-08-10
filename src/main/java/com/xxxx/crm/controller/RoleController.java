@@ -40,4 +40,13 @@ public class RoleController  extends BaseController {
     return roleService.queryByParamsForTable(roleQuery);
     }
 
+    /**
+     * 进入角色管理界面
+     * @return
+     */
+    @RequestMapping("index")
+    public String index(){
+        return "role/role";
+    }
+
 }
