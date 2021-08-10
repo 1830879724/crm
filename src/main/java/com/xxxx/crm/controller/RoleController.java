@@ -93,4 +93,16 @@ public class RoleController  extends BaseController {
         return success("角色修改成功");
     }
 
+    /**
+     * 删除角色
+     * @param roleId
+     * @return
+     */
+    @PostMapping("delete")
+    @ResponseBody
+    public ResultInfo deleteRole(Integer roleId){
+        roleService.deleteRole(roleId);
+        return success("角色删除成功");
+    }
+
 }

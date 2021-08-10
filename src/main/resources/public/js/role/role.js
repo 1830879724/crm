@@ -113,10 +113,40 @@ layui.use(['table','layer'],function(){
                      openAddOrUpdateRoleDialog(data.data.id);
               } else if (data.event=='del'){//删除记录
                      //删除单条记录
-                     deleteUser(data.data.id);
+                     deleteRole(data.data.id);
 
               }
        })
 
+       /**
+        * 删除单条用户记录
+        * @param id
+        */
+       function deleteRole(roleId){
+              //提示用户是否删除 ,弹出层
+              layer.confirm('确定删除该记录嘛！',{icon:3,title:"角色管理"},function (index){
+                     //关闭确认框
+                     layer.close(index);
+                     //发送对应的ajax请求删除记录
+                     $.ajax({
+                            type:"post",
+                            url: ctx + "/role/delete",
+                            data:{
+                                   roleId:roleId
+                            },
+                            success:function (result) {
+                                   //判断删除结果
+                                   if (result.code == 200){
+                                          layer.msg("删除成功",{icon:6});
+                                          //刷新表格
+                                          tableIns.reload();
+                                   }else {
+                                          //提示失败
+                                          layer.msg(result.msg,{icon: 5})
+                                   }
+                            }
+                     });
+              });
+       }
 
 });
