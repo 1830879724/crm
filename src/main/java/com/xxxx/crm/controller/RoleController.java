@@ -1,8 +1,10 @@
 package com.xxxx.crm.controller;
 
 import com.xxxx.crm.base.BaseController;
+import com.xxxx.crm.query.RoleQuery;
 import com.xxxx.crm.service.RoleService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,6 +27,17 @@ public class RoleController  extends BaseController {
     @ResponseBody
     public List<Map<String,Object>> queryAllRole(Integer userId){
         return roleService.queryAllRole(userId);
+    }
+
+    /**
+     * 分页查询角色列表
+     * @param roleQuery
+     * @return
+     */
+    @GetMapping("list")
+    @ResponseBody
+    public Map<String,Object> selectByParams(RoleQuery roleQuery){
+    return roleService.queryByParamsForTable(roleQuery);
     }
 
 }

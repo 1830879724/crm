@@ -1,11 +1,23 @@
 package com.xxxx.crm.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class Role {
     private Integer id;
 
-    private String name;
+    private String roleName;
 
-    private String namezh;
+    private String roleRemark;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date updateDate;
+
+    private Integer isValid;
 
     public Integer getId() {
         return id;
@@ -15,19 +27,43 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public String getNamezh() {
-        return namezh;
+    public String getRoleRemark() {
+        return roleRemark;
     }
 
-    public void setNamezh(String namezh) {
-        this.namezh = namezh == null ? null : namezh.trim();
+    public void setRoleRemark(String roleRemark) {
+        this.roleRemark = roleRemark;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public Integer getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Integer isValid) {
+        this.isValid = isValid;
     }
 }
