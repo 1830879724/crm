@@ -64,4 +64,13 @@ public class RoleController  extends BaseController {
         return success("角色添加成功");
     }
 
+    /**
+     * 进入添加或者修改界面
+     * @return
+     */
+    @RequestMapping("toAddOrUpdateRolePage")
+    public String toAddOrUpdateRolePage(){
+        return "role/add_update";
+    }
+
 }

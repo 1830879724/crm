@@ -64,4 +64,45 @@ layui.use(['table','layer'],function(){
                      }
               })
        })
+
+
+       /**
+        * 监听头部工具栏
+        */
+       table.on('toolbar(roles)',function (data){
+              if (data.event == "add"){//添加操作
+                     //打开添加或修改用户的对话框
+                     openAddOrUpdateRoleDialog();
+              }else if (data.event == "del"){//删除操作
+                     //获取被选中的数据信息
+                     var checkStatus =table.checkStatus(data.config.id);
+                     console.log(checkStatus);
+                     //删除多个用户记录
+                     //deleteUsers(checkStatus.data);
+              }
+       })
+
+       /**
+        * 打开添加或修改用户的对话框
+        */
+       function openAddOrUpdateRoleDialog(id){
+              var title = "<h3>用户管理 -添加用户</h3>";
+              var url =ctx + "/role/toAddOrUpdateRolePage";
+
+              //判断id是否为空如果为空则为添加操作反之更新操作
+              // if (id != null && id != ''){
+              //        title = "<h3>用户管理 -更新用户</h3>";
+              //        url += "?id="+id;//传递主键查询数据
+              // }
+              layui.layer.open({
+                     title:title,
+                     type:2,
+                     content:url,
+                     area:["500px","400px"],
+                     //设置可大可小化
+                     maxmin:true
+              });
+       }
+
+
 });
