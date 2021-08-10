@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -69,8 +70,27 @@ public class RoleController  extends BaseController {
      * @return
      */
     @RequestMapping("toAddOrUpdateRolePage")
-    public String toAddOrUpdateRolePage(){
+    public String toAddOrUpdateRolePage(Integer roleId,HttpServletRequest req){
+        //如果roleId 不为空则表示修改操作，通过角色ID查询角色记录，存到请求域中
+        if (roleId !=null){
+            //通过角色ID查询角色记录
+            Role role =roleService.selectByPrimaryKey(roleId);
+            //设置到请求域中
+            req.setAttribute("role",role);
+        }
         return "role/add_update";
+    }
+
+    /**
+     * 更新角色
+     * @param role
+     * @return
+     */
+    @PostMapping("update")
+    @ResponseBody
+    public ResultInfo updateRole(Role role){
+        roleService.updateRole(role);
+        return success("角色修改成功");
     }
 
 }

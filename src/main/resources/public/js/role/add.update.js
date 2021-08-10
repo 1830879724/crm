@@ -27,9 +27,10 @@ layui.use(['form', 'layer'], function () {
         //请求地址
         var url = ctx + "/role/add";//默认添加
         //判断用户id是否为空不为空则更新操作
-        // if ($("[name='id']").val()){
-        //     var url = ctx + "/user/update";
-        // }
+        var roleId=$("[name=id]").val();
+        if (roleId!=null && roleId!= ''){
+             url = ctx + "/role/update";//修改操作
+        }
 
         //判断计划项ID是否为空（不为空则表示更新）
         $.post(url,formData,function (result) {

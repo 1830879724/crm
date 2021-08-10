@@ -85,15 +85,15 @@ layui.use(['table','layer'],function(){
        /**
         * 打开添加或修改用户的对话框
         */
-       function openAddOrUpdateRoleDialog(id){
+       function openAddOrUpdateRoleDialog(roleId){
               var title = "<h3>用户管理 -添加用户</h3>";
               var url =ctx + "/role/toAddOrUpdateRolePage";
 
               //判断id是否为空如果为空则为添加操作反之更新操作
-              // if (id != null && id != ''){
-              //        title = "<h3>用户管理 -更新用户</h3>";
-              //        url += "?id="+id;//传递主键查询数据
-              // }
+              if (roleId != null && roleId != ''){
+                     title = "<h3>用户管理 -角色更新</h3>";
+                     url += "?roleId="+roleId;//传递主键查询数据
+              }
               layui.layer.open({
                      title:title,
                      type:2,
@@ -103,6 +103,20 @@ layui.use(['table','layer'],function(){
                      maxmin:true
               });
        }
+
+       /**
+        * 监听行工具栏
+        */
+       table.on('tool(roles)',function (data){
+              if (data.event == "edit"){//更新操作
+                     //打开添加或修改用户的对话框
+                     openAddOrUpdateRoleDialog(data.data.id);
+              } else if (data.event=='del'){//删除记录
+                     //删除单条记录
+                     deleteUser(data.data.id);
+
+              }
+       })
 
 
 });
