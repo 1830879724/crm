@@ -1,10 +1,13 @@
 package com.xxxx.crm.controller;
 
 import com.xxxx.crm.base.BaseController;
+import com.xxxx.crm.base.ResultInfo;
 import com.xxxx.crm.query.RoleQuery;
 import com.xxxx.crm.service.RoleService;
+import com.xxxx.crm.vo.Role;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,6 +50,18 @@ public class RoleController  extends BaseController {
     @RequestMapping("index")
     public String index(){
         return "role/role";
+    }
+
+    /**
+     * 添加角色用户
+     * @param role
+     * @return
+     */
+    @PostMapping("add")
+    @ResponseBody
+    public ResultInfo addRole(Role role){
+        roleService.addRole(role);
+        return success("角色添加成功");
     }
 
 }

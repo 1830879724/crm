@@ -134,4 +134,14 @@
       </if>
  </where>
   </select>
+    <!--查询角色记录-->
+  <select id="selectByRoleName" resultType="com.xxxx.crm.vo.Role" parameterType="String">
+    select
+        <include refid="Base_Column_List"></include>
+    from
+    t_role
+    where
+      is_valid=1
+    and role_name=#{roleName}
+  </select>
 </mapper>
