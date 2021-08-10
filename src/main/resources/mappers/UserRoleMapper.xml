@@ -93,7 +93,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <!--  通过用户id查询角色记录-->
-  <select id="countUserRoleByUserId" resultType="java.lang.Integer" parameterType="int">
+  <select id="countUserRoleByUserId" resultType="java.lang.Integer" parameterType="Integer">
         select
           count(1)
         from
@@ -102,7 +102,7 @@
           user_id=#{userId}
   </select>
   <!--根据拥挤ID删除用户角色记录-->
-  <delete id="deleteUserRoleByUserId" parameterType="int">
+  <delete id="deleteUserRoleByUserId" parameterType="Integer">
     delete
       from
         t_user_role
@@ -112,7 +112,7 @@
   <!--批量添加-->
   <insert id="insertBatch">
     insert  into
-      t_user_role(user_id,role_id,cretae_date,update_date)
+      t_user_role(user_id,role_id,create_date,update_date)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.userId},#{item.roleId},now(),now())

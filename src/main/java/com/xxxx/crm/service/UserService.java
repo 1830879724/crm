@@ -206,18 +206,18 @@ public class UserService extends BaseService<User,Integer> {
         //通过用户id查询角色记录
         Integer count=userRoleMapper.countUserRoleByUserId(userId);
         //判断用户角色是否存在
-        if (count>0){
+        if (count > 0){
             //如果角色记录存在，删除该用户对应的角色距离
-            AssertUtil.isTrue(userRoleMapper.deleteUserRoleByUserId(userId)!=count,"用户角色分配失败!");
+            AssertUtil.isTrue(userRoleMapper.deleteUserRoleByUserId(userId) !=count,"用户角色分配失败!");
         }
-        //判断角色ID是否存在，存在则调价改用户对于的角色记录
-        if (StringUtils.isBlank(roleIds)){
+        //判断角色ID是否存在，存在则添加该用户对于的角色记录
+        if (StringUtils.isNoneBlank(roleIds)){
             //将用户角色数据设置到集合中 执行批量添加
             List<UserRole> userRoleList =new ArrayList<>();
             //将字符串转换成数组遍历
-            String[] roleIdsArray=roleIds.split(",");
+            String[] roleIdsArray = roleIds.split(",");
             //遍历数组，得到对应的用户对象并设置到集合中
-            for (String roleId :roleIdsArray){
+            for (String roleId : roleIdsArray){
                 UserRole userRole=new UserRole();
                 userRole.setRoleId(Integer.parseInt(roleId));
                 userRole.setUserId(userId);

@@ -75,10 +75,10 @@
         r.id,
         r.role_name AS roleName,
         CASE
-
-          WHEN IFNULL( temp.id, 0 ) = 0 THEN
-            '' ELSE 'selected'
-          END as 'selected'
+          WHEN IFNULL(temp.id,0) = 0 THEN ''
+          ELSE 'selected'
+          END
+        AS 'selected'
       FROM
         t_role r
           LEFT JOIN ( SELECT r.id FROM t_role r LEFT JOIN t_user_role ur ON r.id = ur.role_id WHERE user_id = #{userId} ) temp ON r.id = temp.id

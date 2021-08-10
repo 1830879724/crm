@@ -25,6 +25,7 @@ layui.use(['form', 'layer','formSelects'], function () {
         });
         //得到所有的表单元素的值
         var formData =data.field;
+        console.log(formData);
         //请求地址
         var url = ctx + "/user/add";//默认添加
         //判断用户id是否为空不为空则更新操作
