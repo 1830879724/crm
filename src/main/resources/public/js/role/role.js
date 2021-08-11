@@ -76,7 +76,6 @@ layui.use(['table','layer'],function(){
               }else if (data.event == "grant"){//授权操作
                      //获取被选中的数据信息
                      var checkStatus =table.checkStatus(data.config.id);
-                     console.log(checkStatus);
                      //打开授权窗口
                      openAddGrantDialog(checkStatus.data);
               }
@@ -92,12 +91,11 @@ layui.use(['table','layer'],function(){
                      return;
               }
               //只支持单个用户授权
-              if (data.length >1){
+              if (data.length > 1){
                      layer.msg("暂不支持多个角色授权",{icon:5});
                      return;
               }
-
-              var url = ctx + "module/toAddGrantPage?roleId="+data[0].id;
+              var url = ctx + "/module/toAddGrantPage?roleId="+data[0].id;
               var title= "<h3>角色管理 - 角色授权</h3>";
               layui.layer.open({
                      title:title,

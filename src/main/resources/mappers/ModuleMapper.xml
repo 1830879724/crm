@@ -177,9 +177,7 @@
   <!--查询所有资源列表-->
   <select id="queryAllModules" resultType="com.xxxx.crm.model.TreeModel">
     select
-        id,
-        parent_id as pid,
-        module_name as name
+      id, parent_id as pId, module_name as name
         from
             t_module
         where

@@ -19,7 +19,10 @@ public class ModuleController  extends BaseController {
     private ModuleService moduleService;
 
 
-
+    /**
+     * 查询所有的资源列表
+     * @return
+     */
     @ResponseBody
     @RequestMapping("queryAllModules")
     public List<TreeModel> queryAllModules(){
@@ -32,6 +35,7 @@ public class ModuleController  extends BaseController {
      */
     @RequestMapping("toAddGrantPage")
     public String toAddGrantPage(Integer roleId){
+        System.out.println("小鬼子");
         return "role/grant";
 
     }
