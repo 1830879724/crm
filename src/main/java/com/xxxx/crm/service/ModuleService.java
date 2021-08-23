@@ -8,7 +8,9 @@ import com.xxxx.crm.vo.Module;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ModuleService extends BaseService<Module,Integer> {
@@ -40,5 +42,20 @@ public class ModuleService extends BaseService<Module,Integer> {
         }
         return treeModelList;
 
+    }
+
+    /**
+     * 查询所有的资源数据
+     * @return
+     */
+    public Map<String,Object> queryModuleList(){
+        Map<String,Object> map =new HashMap<>();
+        //查询资源列表
+        List<Module> modulesList=moduleMapper.queryModuleList();
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",modulesList.size());
+        map.put("data",modulesList);
+        return map;
     }
 }

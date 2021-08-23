@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("module")
@@ -40,6 +41,15 @@ public class ModuleController  extends BaseController {
         //将需要授权的角色Id设置到请求域中
         req.setAttribute("roleId",roleId);
         return "role/grant";
+    }
 
+    /**
+     * 查询所有的资源数据
+     * @return
+     */
+    @RequestMapping("list")
+    @ResponseBody
+    public Map<String,Object> queryModuleList(){
+        return moduleService.queryModuleList();
     }
 }
