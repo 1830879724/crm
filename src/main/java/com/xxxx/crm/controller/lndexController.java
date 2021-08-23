@@ -1,6 +1,7 @@
 package com.xxxx.crm.controller;
 
 import com.xxxx.crm.base.BaseController;
+import com.xxxx.crm.service.PermissionService;
 import com.xxxx.crm.service.UserService;
 import com.xxxx.crm.utils.LoginUserUtil;
 import com.xxxx.crm.vo.User;
@@ -10,11 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class lndexController extends BaseController {
     @Resource
     private UserService userService;
+
+    @Resource
+    private PermissionService permissionService;
 
     /**
      * 系统登录页
@@ -43,6 +48,10 @@ public class lndexController extends BaseController {
         //查询用户对象  设置session作用域
         User user =userService.selectByPrimaryKey(userId) ;
         request.getSession().setAttribute("user",user);
+        //通过用户ID判断当前登录用户所拥有的菜单列表（查询对应资源授权码）
+        List<String> lists=permissionService.queryUserHasPermissionByUserId(userId);
+        //将集合设置到session作用域中
+        request.getSession().setAttribute("lists",lists);
         return "main";
     }
 }

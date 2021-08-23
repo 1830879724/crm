@@ -36,6 +36,17 @@
     where
       role_id=#{roleId}
   </select>
+  <!--通过用户ID查询用户拥有的角色资源，当前登录用户所拥有的菜单列表（查询对应资源授权码）-->
+  <select id="queryUserHasPermissionByUserId" parameterType="int" resultType="java.lang.String">
+    SELECT
+      DISTINCT
+      acl_value
+    FROM
+      t_user_role ur
+        LEFT JOIN t_permission p ON ur.role_id = p.role_id
+    WHERE
+      ur.user_id = #{userId}
+  </select>
 
   <!--删除权限记录-->
   <delete id="deleteByRoleId" parameterType="int">

@@ -25,4 +25,11 @@ public interface PermissionMapper  extends BaseMapper<Permission,Integer> {
      * @return
      */
     List<Integer> queryRoleHasModuleByRoleId(Integer roleId);
+
+    /**
+     * 通过用户ID查询用户拥有的角色资源，当前登录用户所拥有的菜单列表（查询对应资源授权码）
+     * @param userId
+     * @return
+     */
+    List<String> queryUserHasPermissionByUserId(Integer userId);
 }
