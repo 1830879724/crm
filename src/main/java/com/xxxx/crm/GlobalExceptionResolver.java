@@ -80,7 +80,8 @@ public class GlobalExceptionResolver  implements HandlerExceptionResolver {
                     modelAndView.addObject("code",p.getCode());
                     modelAndView.addObject("msg",p.getMsg());
 
-                }else if (e instanceof AuthException) { // 认证异常
+                }
+                if (e instanceof AuthException) { // 认证异常
                     AuthException a  = (AuthException) e;
                     // 设置异常信息
                     modelAndView.addObject("code",a.getCode());
