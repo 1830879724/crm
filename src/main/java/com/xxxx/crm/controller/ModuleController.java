@@ -52,4 +52,14 @@ public class ModuleController  extends BaseController {
     public Map<String,Object> queryModuleList(){
         return moduleService.queryModuleList();
     }
+
+    /**
+     * 进入菜单管理界面
+     * @return
+     */
+    @RequestMapping("index")
+    public String index(){
+        return "module/module";
+
+    }
 }
