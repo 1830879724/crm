@@ -34,11 +34,15 @@ function loadModuleData(){
     $.ajax({
         type:"get",
         url:ctx + "/module/queryAllModules",
+        data:{
+            roleId:$("[name='roleId']").val()
+        },
         dataType:"json",
         success:function (data){
             //data 查询到的资源列表
             //异步请求 加载zTree插件
             zTreeObj = $.fn.zTree.init($("#test1"), setting, data);
+            console.log("我的数据格式是:"+zTreeObj)
         }
     });
 }

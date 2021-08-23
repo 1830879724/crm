@@ -27,6 +27,15 @@
     where
         role_id=#{roleId}
     </select>
+  <!--查询指定角色已经授权过的资源列表集合-->
+  <select id="queryRoleHasModuleByRoleId" parameterType="int" resultType="java.lang.Integer">
+    select
+           module_id
+    from
+        t_permission
+    where
+      role_id=#{roleId}
+  </select>
 
   <!--删除权限记录-->
   <delete id="deleteByRoleId" parameterType="int">

@@ -24,10 +24,10 @@ public class ModuleController  extends BaseController {
      * 查询所有的资源列表
      * @return
      */
-    @ResponseBody
     @RequestMapping("queryAllModules")
-    public List<TreeModel> queryAllModules(){
-        return moduleService.queryAllModules();
+    @ResponseBody
+    public List<TreeModel> queryAllModules(Integer roleId){
+        return moduleService.queryAllModules(roleId);
     }
 
     /**
