@@ -41,7 +41,21 @@ layui.use(['table', 'treetable'], function () {
         }
     });
 
+    /**
+     * 头部工具栏 监听事件  toolbar
+     */
+    table.on('toolbar(munu-table)',function (data) {
+        //判断对应的事件类型
+        //data.event ：对应的元素上设置的munu-table的属性值 全部展开
+        if (data.event == "expand"){
+            //全部展开
+            treeTable.expandAll("#munu-table");
+        }else if (data.event == "fold"){
+            //全部折叠
+            treeTable.foldAll("#munu-table");
+        }
 
+    })
     
 
     
