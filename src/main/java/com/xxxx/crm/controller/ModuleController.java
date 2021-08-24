@@ -2,9 +2,12 @@ package com.xxxx.crm.controller;
 
 
 import com.xxxx.crm.base.BaseController;
+import com.xxxx.crm.base.ResultInfo;
 import com.xxxx.crm.model.TreeModel;
 import com.xxxx.crm.service.ModuleService;
+import com.xxxx.crm.vo.Module;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -62,4 +65,17 @@ public class ModuleController  extends BaseController {
         return "module/module";
 
     }
+
+    /**
+     * 添加资源
+     * @param module
+     * @return
+     */
+    @PostMapping("add")
+    @ResponseBody
+    public ResultInfo addModule(Module module){
+        moduleService.addModule(module);
+       return success("添加资源成功");
+    }
+
 }

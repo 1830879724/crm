@@ -192,4 +192,38 @@
       where
           is_valid=1
     </select>
+  <!--模块名称 moduleName 同一层级 名称唯一-->
+  <select id="queryModuleByGradeModuleName" resultType="com.xxxx.crm.vo.Module">
+    select
+        <include refid="Base_Column_List"></include>
+    from
+        t_module
+    where
+    is_valid =1
+    and grade=#{grade} and module_name=#{moduleName}
+  </select>
+  <!--地址 url 同一层级不可重复-->
+  <select id="queryModuleByGradeAndUrl" resultType="com.xxxx.crm.vo.Module">
+    select
+    <include refid="Base_Column_List"></include>
+    from
+    t_module
+    where
+    is_valid =1
+    and grade=#{grade} and url=#{url}
+  </select>
+  <!--权限码 optValue  不可重复-->
+  <select id="queryModuleByOptValue" resultType="com.xxxx.crm.vo.Module">
+    select
+    <include refid="Base_Column_List"></include>
+    from
+    t_module
+    where
+    is_valid =1
+    and opt_value=#{optValue}
+  </select>
+
+
+
+
 </mapper>
