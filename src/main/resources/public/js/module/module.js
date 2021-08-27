@@ -53,10 +53,46 @@ layui.use(['table', 'treetable'], function () {
         }else if (data.event == "fold"){
             //全部折叠
             treeTable.foldAll("#munu-table");
+        }else if (data.event=="add"){
+            //添加目录 层级0 父菜单-1
+            openAddModuleDialog(0,-1)
         }
+    });
 
-    })
-    
+
+    /**
+     * 监听行工具栏
+     */
+   table.on('tool(munu-table)',function (data){
+        if (data.event == "add"){
+            //添加子项
+            //判断当前层级（如果是三级菜单，不能添加）
+            if (data.data.grade == 2){
+                layer.msg("不支持四级菜单添加",{icon:5});
+                return;
+            }
+            //一级菜单|二级菜单 grade =当前层级+1，parentId = 当前资源的ID
+            openAddModuleDialog(data.data.grade+1,data.data.id);
+        }
+   });
+
+    /**
+     * 打开添加资源对话框
+     * @param grade 层级
+     * @param parentId 父菜单
+     */
+    function openAddModuleDialog(grade,parentId){
+        var title="<h3>资源管理 - 资源添加</h3>";
+        var url = ctx + "/module/toAddModulePage?grade=" + grade + "&parentId=" + parentId;
+        //打开窗口
+        layui.layer.open({
+            type: 2,
+            title:title,
+            content:url,
+            area:["700px","450px"],
+            maxmin:true
+        });
+    }
 
     
 });

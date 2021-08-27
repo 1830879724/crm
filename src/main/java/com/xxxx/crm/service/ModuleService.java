@@ -102,7 +102,7 @@ public class ModuleService extends BaseService<Module,Integer> {
         }
         //3.父级菜单 parentId 一级菜单（目录 grade=0） null
         if (grade==0){
-            module.setParentId(null);
+            module.setParentId(-1);
         }
         //3.父级菜单 parentId 二级|三级菜单（菜单|按钮 grade=1或2） 非空，父级菜单必须存在
         if (grade!=0){

@@ -66,7 +66,7 @@
             <button class="layui-btn layui-btn-lg" lay-submit=""
                     lay-filter="addModule">确认
             </button>
-            <button class="layui-btn layui-btn-lg layui-btn-normal">取消</button>
+            <button class="layui-btn layui-btn-lg layui-btn-normal" id="closeBtn">取消</button>
         </div>
     </div>
 </form>

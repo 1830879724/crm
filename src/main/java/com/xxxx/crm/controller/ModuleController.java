@@ -78,4 +78,18 @@ public class ModuleController  extends BaseController {
        return success("添加资源成功");
     }
 
+    /**
+     * 打开添加资源的页面
+     * @param grade 层级
+     * @param parentId 父菜单ID
+     * @return
+     */
+    @RequestMapping("toAddModulePage")
+    public String toAddModulePage(Integer grade,Integer parentId,HttpServletRequest request){
+        //将数据存在请求域中
+        request.setAttribute("grade",grade);
+        request.setAttribute("parentId",parentId);
+        return "module/add";
+    }
+
 }

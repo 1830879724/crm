@@ -3,9 +3,10 @@ layui.use(['form', 'layer'], function () {
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery;
     form.on("submit(addModule)", function (data) {
-        var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
         //弹出loading
-        $.post(ctx+"/module/save", data.field, function (res) {
+        var index = top.layer.msg('数据提交中，请稍候', {icon: 16, time: false, shade: 0.8});
+        //发送ajax
+        $.post(ctx+"/module/add", data.field, function (res) {
             if (res.code == 200) {
                 setTimeout(function () {
                     top.layer.close(index);
@@ -23,5 +24,14 @@ layui.use(['form', 'layer'], function () {
             }
         });
         return false;
+    });
+
+
+    /**
+     * 关闭弹出层
+     */
+    $('#closeBtn').click(function () {
+        var index = parent.layer.getFrameIndex(window.name);//先得到当前iframe层的索引
+        parent.layer.close(index);//在执行关闭
     });
 });
